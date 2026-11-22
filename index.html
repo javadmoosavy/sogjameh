@@ -1,0 +1,901 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080707">
+<meta name="description" content="بروشور دیجیتال نمایش سوگ جامه، به نویسندگی صادق عاشورپور و کارگردانی جلیل یغمایی">
+<title>سوگ جامه | تجربه‌ای از تئاتر هدف</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#080707;
+  --black2:#100d0c;
+  --panel:#171211;
+  --panel2:#201715;
+  --red:#d51e2b;
+  --red2:#8d101b;
+  --gold:#c7a66a;
+  --gold2:#f0d7a6;
+  --cream:#f3eadb;
+  --muted:#a89b8d;
+  --line:rgba(199,166,106,.19);
+  --font:"Vazirmatn",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--font);
+  line-height:1.9;
+  overflow-x:hidden;
+}
+body.loading{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{max-width:100%}
+::selection{background:var(--red);color:white}
+
+/* BACKGROUND */
+#particles{
+  position:fixed;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:1;opacity:.55
+}
+.grain{
+  position:fixed;inset:0;z-index:80;pointer-events:none;
+  opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.ambient{
+  position:fixed;inset:-20%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 35%,rgba(146,15,25,.10),transparent 35%),
+    radial-gradient(ellipse at 85% 75%,rgba(181,137,66,.07),transparent 35%);
+  animation:ambientMove 16s ease-in-out infinite alternate;
+}
+@keyframes ambientMove{
+  from{transform:translate3d(-2%,0,0) scale(1)}
+  to{transform:translate3d(2%,-2%,0) scale(1.08)}
+}
+main,.header,.footer{position:relative;z-index:2}
+
+/* LOADER */
+.loader{
+  position:fixed;inset:0;background:#050404;z-index:200;
+  display:grid;place-items:center;
+  transition:opacity 1s,visibility 1s;
+}
+.loader.out{opacity:0;visibility:hidden}
+.loader-box{text-align:center}
+.loader-logo{
+  width:min(420px,78vw);height:230px;object-fit:contain;
+  animation:logoBreath 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 35px rgba(213,30,43,.3));
+}
+@keyframes logoBreath{
+  50%{transform:scale(1.035);filter:drop-shadow(0 0 60px rgba(213,30,43,.48))}
+}
+.loader-caption{font-size:10px;color:var(--gold);letter-spacing:5px;margin-top:18px}
+.loader-track{width:170px;height:2px;background:#29201c;margin:22px auto;overflow:hidden}
+.loader-track:after{
+  content:"";display:block;width:40%;height:100%;background:var(--red);
+  animation:loading 1.2s ease-in-out infinite;
+}
+@keyframes loading{from{transform:translateX(-180%)}to{transform:translateX(400%)}}
+
+/* PROGRESS */
+.progress{
+  position:fixed;top:0;right:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--gold2));
+  z-index:120;box-shadow:0 0 15px var(--red);
+}
+
+/* NAV */
+.header{
+  position:fixed;top:0;right:0;width:100%;z-index:100;
+  background:rgba(8,7,7,.76);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(199,166,106,.12);
+  transition:.4s;
+}
+.header.scrolled{background:rgba(8,7,7,.94)}
+.nav{
+  width:min(1200px,91%);height:76px;margin:auto;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{width:42px;height:42px;object-fit:contain}
+.brand-name{font-size:13px;color:var(--gold2);font-weight:700}
+.brand-sub{font-size:8px;color:var(--muted);letter-spacing:2px;display:block}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{
+  color:#c5b9a7;font-size:11px;position:relative;transition:.3s;
+}
+.nav-links a:after{
+  content:"";position:absolute;bottom:-8px;right:0;width:0;height:1px;
+  background:var(--red);transition:.3s;
+}
+.nav-links a:hover{color:var(--gold2)}
+.nav-links a:hover:after{width:100%}
+.menu-button{
+  display:none;background:transparent;color:var(--gold2);
+  border:1px solid var(--line);border-radius:5px;padding:7px 12px;
+}
+
+/* HERO */
+.hero{
+  min-height:100svh;position:relative;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 53%,rgba(125,12,23,.23),transparent 39%),
+    linear-gradient(180deg,#090707 0%,#100b0b 58%,#080707 100%);
+  perspective:1000px;
+}
+.hero:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.65),transparent 35%,transparent 65%,rgba(0,0,0,.65));
+}
+.stage-floor{
+  position:absolute;bottom:-17%;left:50%;width:120%;height:45%;
+  transform:translateX(-50%) rotateX(68deg);
+  transform-origin:top;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 90px,rgba(199,166,106,.08) 91px 92px),
+    linear-gradient(180deg,rgba(128,24,25,.16),transparent);
+  border-top:1px solid rgba(199,166,106,.22);
+  mask-image:linear-gradient(to bottom,#000,transparent);
+}
+.spotlight{
+  position:absolute;top:-15%;width:30%;height:100%;
+  transform-origin:top center;filter:blur(12px);
+  opacity:.12;pointer-events:none;
+}
+.spotlight.one{
+  left:12%;transform:rotate(23deg);
+  background:linear-gradient(180deg,rgba(213,30,43,.7),transparent);
+  animation:spotOne 8s ease-in-out infinite alternate;
+}
+.spotlight.two{
+  right:12%;transform:rotate(-23deg);
+  background:linear-gradient(180deg,rgba(221,186,120,.6),transparent);
+  animation:spotTwo 9s ease-in-out infinite alternate;
+}
+@keyframes spotOne{to{transform:rotate(32deg);opacity:.23}}
+@keyframes spotTwo{to{transform:rotate(-32deg);opacity:.2}}
+.hero-ring{
+  position:absolute;left:50%;top:48%;
+  width:min(82vw,850px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(199,166,106,.13);
+  transform:translate(-50%,-50%) rotateX(67deg);
+  box-shadow:0 0 80px rgba(213,30,43,.08),inset 0 0 70px rgba(199,166,106,.04);
+  animation:ringPulse 7s ease-in-out infinite;
+}
+.hero-ring:before,.hero-ring:after{
+  content:"";position:absolute;inset:9%;border:1px dashed rgba(199,166,106,.18);border-radius:50%;
+}
+.hero-ring:after{inset:19%;border-style:solid;opacity:.5}
+@keyframes ringPulse{50%{transform:translate(-50%,-50%) rotateX(67deg) scale(1.04);opacity:.55}}
+.hero-content{
+  position:relative;z-index:3;width:min(1000px,92%);
+  padding:125px 0 85px;transform-style:preserve-3d;
+  animation:heroAppear 1.4s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes heroAppear{from{opacity:0;transform:translateY(40px) rotateX(8deg)}to{opacity:1;transform:none}}
+.eyebrow{
+  font-size:10px;letter-spacing:5px;color:var(--gold);
+  margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:15px;
+}
+.eyebrow:before,.eyebrow:after{content:"";width:38px;height:1px;background:var(--red)}
+.hero-logo{
+  width:min(820px,94vw);height:auto;max-height:350px;object-fit:contain;
+  filter:drop-shadow(0 12px 32px rgba(213,30,43,.24));
+  animation:logoFloat 7s ease-in-out infinite;
+}
+@keyframes logoFloat{50%{transform:translateY(-9px) rotateX(2deg)}}
+.hero-title{
+  color:var(--gold2);font-size:clamp(15px,2.1vw,22px);
+  font-weight:400;letter-spacing:3px;margin-top:19px;
+}
+.hero-desc{color:#b4a797;font-size:12px;margin-top:8px}
+.hero-separator{
+  height:1px;width:150px;margin:30px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-credits{font-size:12px;color:#b8ab9a;line-height:2.5}
+.hero-credits strong{color:var(--cream);font-weight:600}
+.enter-button{
+  display:inline-flex;align-items:center;gap:12px;margin-top:35px;
+  padding:12px 23px;border:1px solid rgba(199,166,106,.45);
+  color:var(--gold2);font-size:11px;letter-spacing:1px;
+  transition:.4s;position:relative;overflow:hidden;
+}
+.enter-button:before{
+  content:"";position:absolute;inset:0;background:var(--red);
+  transform:translateX(105%);transition:.4s;z-index:-1;
+}
+.enter-button:hover{border-color:var(--red);color:white;box-shadow:0 0 30px rgba(213,30,43,.18)}
+.enter-button:hover:before{transform:translateX(0)}
+.enter-button span{font-size:18px}
+.scroll-hint{
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  margin-top:45px;color:#84796d;font-size:9px;letter-spacing:3px;
+}
+.scroll-hint i{height:38px;width:1px;background:linear-gradient(var(--gold),transparent);animation:scrollLine 2s infinite}
+@keyframes scrollLine{50%{transform:scaleY(.4);transform-origin:top}}
+
+/* COMMON */
+.container{width:min(1160px,90%);margin:auto}
+.section{padding:115px 0;position:relative;border-top:1px solid rgba(199,166,106,.09)}
+.section-head{text-align:center;margin-bottom:55px}
+.section-head .en{font-size:9px;color:var(--red);letter-spacing:5px}
+.section-head h2{
+  font-size:clamp(27px,4vw,43px);font-weight:600;
+  color:var(--gold2);margin-top:8px;
+}
+.section-head p{font-size:12px;color:var(--muted);margin-top:8px}
+.ornament{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:17px;color:var(--gold)}
+.ornament:before,.ornament:after{content:"";height:1px;width:45px;background:var(--line)}
+.kicker{font-size:10px;color:var(--red);letter-spacing:3px}
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .9s,transform .9s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.delay1{transition-delay:.12s}.delay2{transition-delay:.24s}.delay3{transition-delay:.36s}
+
+/* ABOUT */
+.about{
+  background:radial-gradient(ellipse at 80% 50%,rgba(113,22,23,.10),transparent 45%);
+}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+.about-text{font-size:14px;color:#c8bbaa;line-height:2.8}
+.about-text .big-letter{font-size:32px;color:var(--red);font-weight:800}
+.about-quote{
+  margin-top:30px;padding:20px 25px;
+  border-right:2px solid var(--red);
+  background:linear-gradient(90deg,transparent,rgba(213,30,43,.07));
+  color:var(--gold2);font-size:13px;
+}
+.identity-card{
+  position:relative;padding:34px;background:linear-gradient(145deg,#201817,#100d0c);
+  border:1px solid var(--line);box-shadow:15px 20px 55px rgba(0,0,0,.3);
+  transform:perspective(900px) rotateY(-3deg);
+  transition:.5s;
+}
+.identity-card:hover{transform:perspective(900px) rotateY(0) translateY(-5px)}
+.identity-card:before{
+  content:"";position:absolute;inset:8px;border:1px solid rgba(199,166,106,.09);pointer-events:none;
+}
+.identity-card h3{font-size:21px;color:var(--gold2);margin-bottom:20px}
+.identity-row{
+  display:flex;justify-content:space-between;gap:15px;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.055);
+  font-size:12px;position:relative;
+}
+.identity-row span{color:var(--muted)}
+.identity-row strong{font-weight:500;text-align:left;color:var(--cream)}
+
+/* CAST */
+.cast-section{
+  background:linear-gradient(180deg,#0b0909,#110d0d 50%,#0a0808);
+}
+.cast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cast-card{
+  min-height:125px;padding:23px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(36,24,22,.95),rgba(15,12,11,.98));
+  border:1px solid rgba(199,166,106,.15);
+  transform-style:preserve-3d;transition:border-color .35s,box-shadow .35s;
+}
+.cast-card:before{
+  content:"";position:absolute;top:0;right:0;width:3px;height:0;
+  background:linear-gradient(var(--red),var(--gold));transition:.45s;
+}
+.cast-card:after{
+  content:"";position:absolute;width:130px;height:130px;border-radius:50%;
+  left:-65px;bottom:-80px;background:rgba(213,30,43,.07);
+  filter:blur(12px);transition:.5s;
+}
+.cast-card:hover{
+  border-color:rgba(199,166,106,.5);
+  box-shadow:0 20px 45px rgba(0,0,0,.32),0 0 25px rgba(213,30,43,.07);
+}
+.cast-card:hover:before{height:100%}
+.cast-card:hover:after{transform:scale(1.7)}
+.cast-card strong{display:block;font-size:14px;font-weight:600;color:var(--cream);position:relative;z-index:2}
+.cast-card span{display:block;color:var(--gold);font-size:11px;margin-top:6px;position:relative;z-index:2}
+.cast-card.featured{background:linear-gradient(135deg,#281615,#15100f);border-color:rgba(180,50,45,.25)}
+.cast-card.featured span{color:#e4b77c}
+.cast-number{
+  position:absolute;left:18px;top:13px;color:rgba(199,166,106,.25);
+  font-size:10px;letter-spacing:2px
+}
+
+/* CREDITS */
+.credits-section{background:#0b0909}
+.credits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.credit-card{
+  padding:30px;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#1c1513,#100d0c);
+  border:1px solid rgba(199,166,106,.15);
+  transition:.4s;
+}
+.credit-card:hover{border-color:rgba(199,166,106,.48);transform:translateY(-4px)}
+.credit-card:after{
+  content:"";position:absolute;width:180px;height:180px;border:1px solid rgba(199,166,106,.055);
+  border-radius:50%;left:-90px;bottom:-100px;pointer-events:none;
+}
+.credit-title{display:flex;align-items:center;gap:13px;margin-bottom:17px}
+.credit-icon{
+  width:38px;height:38px;display:grid;place-items:center;
+  border:1px solid rgba(199,166,106,.35);color:var(--gold2);font-size:17px;
+  transform:rotate(45deg);
+}
+.credit-icon span{transform:rotate(-45deg)}
+.credit-title h3{font-size:16px;color:var(--gold2);font-weight:600}
+.credit-row{
+  display:flex;justify-content:space-between;gap:18px;
+  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.055);
+  font-size:12px;position:relative;z-index:2;
+}
+.credit-row:last-child{border:0}
+.credit-row span{color:var(--muted);flex-shrink:0}
+.credit-row strong{font-weight:400;color:#e8ddce;text-align:left}
+
+/* THANKS */
+.thanks-section{
+  background:radial-gradient(ellipse at 50% 50%,rgba(117,21,26,.12),transparent 60%);
+}
+.thanks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:17px}
+.thanks-card{
+  padding:30px;background:rgba(255,255,255,.025);
+  border:1px solid var(--line);transition:.4s;
+}
+.thanks-card:hover{background:rgba(199,166,106,.045);transform:translateY(-4px)}
+.thanks-card h3{font-size:16px;color:var(--gold2);margin-bottom:12px}
+.thanks-card p{font-size:12px;color:#bfb2a2;line-height:2.6}
+.special-thanks{
+  margin-top:22px;padding:36px;text-align:center;
+  background:linear-gradient(125deg,rgba(139,20,28,.17),rgba(199,166,106,.045));
+  border:1px solid rgba(199,166,106,.25);
+}
+.special-thanks h3{font-size:20px;color:var(--gold2);margin-bottom:12px}
+.special-thanks p{font-size:13px;color:#d4c6b3;line-height:2.6}
+
+/* CLOSING */
+.closing{
+  position:relative;padding:110px 0 85px;text-align:center;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(139,20,28,.18),transparent 55%),
+    #090707;
+}
+.closing:before{
+  content:"";position:absolute;left:50%;top:20px;width:min(600px,85vw);
+  aspect-ratio:1;border:1px solid rgba(199,166,106,.1);border-radius:50%;
+  transform:translateX(-50%);
+}
+.closing-mark{
+  width:110px;height:110px;object-fit:contain;
+  filter:grayscale(1) brightness(1.8);
+  opacity:.9;position:relative;
+}
+.closing h2{font-size:36px;color:var(--gold2);margin-top:15px}
+.closing-sub{font-size:12px;color:var(--muted)}
+.logo-family{
+  display:flex;justify-content:center;align-items:center;
+  gap:55px;flex-wrap:wrap;margin-top:55px;
+}
+.logo-item{width:150px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.logo-frame{
+  width:112px;height:112px;display:grid;place-items:center;
+  border:1px solid rgba(199,166,106,.23);border-radius:50%;
+  background:radial-gradient(circle,rgba(199,166,106,.07),transparent 70%);
+  transition:.5s;position:relative;
+}
+.logo-frame:before{
+  content:"";position:absolute;inset:-7px;border:1px dashed rgba(199,166,106,.18);
+  border-radius:50%;animation:spin 35s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo-frame:hover{transform:translateY(-7px) scale(1.05);box-shadow:0 0 35px rgba(199,166,106,.1)}
+.logo-frame img{width:78%;height:78%;object-fit:contain}
+.logo-item span{font-size:11px;color:#c5b69f;text-align:center}
+
+/* FOOTER */
+.footer{
+  padding:25px 0;text-align:center;background:#050404;
+  border-top:1px solid rgba(199,166,106,.12);
+}
+.footer p{font-size:10px;color:#84796e}
+.footer p+p{margin-top:5px;color:#b59b70}
+
+/* FLOATING BUTTONS */
+.top-button{
+  position:fixed;bottom:22px;left:22px;z-index:90;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(20,14,13,.9);
+  color:var(--gold2);font-size:20px;cursor:pointer;
+  opacity:0;visibility:hidden;transition:.3s;
+  backdrop-filter:blur(10px);
+}
+.top-button.show{opacity:1;visibility:visible}
+.top-button:hover{background:var(--red);color:white}
+.sound-button{
+  position:fixed;bottom:22px;right:22px;z-index:90;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(20,14,13,.9);
+  color:var(--gold2);cursor:pointer;backdrop-filter:blur(10px);
+}
+.sound-note{
+  position:fixed;right:76px;bottom:29px;z-index:90;
+  font-size:9px;color:var(--muted);pointer-events:none;
+}
+
+/* MOBILE */
+@media(max-width:850px){
+  .nav-links{
+    display:none;position:absolute;top:76px;right:0;left:0;
+    padding:22px 6%;background:rgba(9,7,7,.98);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:17px;
+  }
+  .nav-links.open{display:flex}
+  .menu-button{display:block}
+  .about-grid{grid-template-columns:1fr;gap:30px}
+  .cast-grid{grid-template-columns:repeat(2,1fr)}
+  .credits-grid,.thanks-grid{grid-template-columns:1fr}
+  .section{padding:85px 0}
+  .hero-content{padding-top:125px}
+  .hero-ring{width:105vw}
+  .spotlight{width:45%}
+}
+@media(max-width:480px){
+  .nav{height:68px}
+  .nav-links{top:68px}
+  .brand img{width:35px;height:35px}
+  .hero{min-height:92svh}
+  .hero-logo{width:98vw}
+  .hero-title{letter-spacing:1px}
+  .hero-credits{font-size:11px}
+  .cast-grid{gap:9px}
+  .cast-card{padding:17px 13px;min-height:115px}
+  .cast-card strong{font-size:12px}
+  .cast-card span{font-size:10px}
+  .credit-card{padding:22px 17px}
+  .credit-row{font-size:11px;gap:10px}
+  .identity-card{padding:23px 18px}
+  .identity-row{font-size:11px}
+  .logo-family{gap:32px}
+  .logo-item{width:125px}
+  .logo-frame{width:95px;height:95px}
+  .closing h2{font-size:30px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body class="loading">
+
+<div class="loader" id="loader">
+  <div class="loader-box">
+    <img class="loader-logo" src="sog-jameh-logo.png" alt="سوگ جامه">
+    <div class="loader-caption">THEATRE HADAF PRESENTS</div>
+    <div class="loader-track"></div>
+  </div>
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="ambient"></div>
+<canvas id="particles"></canvas>
+<div class="grain"></div>
+
+<header class="header" id="header">
+  <div class="nav">
+    <a class="brand" href="#home">
+      <img src="hadaf-logo.png" alt="نشان گروه تئاتر هدف">
+      <div>
+        <span class="brand-name">گروه تئاتر هدف</span>
+        <span class="brand-sub">THEATRE HADAF</span>
+      </div>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">شناسنامه نمایش</a>
+      <a href="#cast">بازیگران</a>
+      <a href="#music">موسیقی</a>
+      <a href="#team">عوامل اجرایی</a>
+      <a href="#thanks">قدردانی</a>
+    </nav>
+    <button class="menu-button" id="menuButton" aria-label="منو">☰</button>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="spotlight one"></div>
+  <div class="spotlight two"></div>
+  <div class="hero-ring"></div>
+  <div class="stage-floor"></div>
+
+  <div class="hero-content" id="heroContent">
+    <div class="eyebrow">یک تجربه نمایشی از گروه تئاتر هدف</div>
+    <img class="hero-logo" src="sog-jameh-logo.png" alt="لوگوی نمایش سوگ جامه">
+    <div class="hero-title">بروشور دیجیتال نمایش «سوگ جامه»</div>
+    <div class="hero-desc">مؤسسه هنرهای نمایشی دایره گچی ترشیز</div>
+    <div class="hero-separator"></div>
+    <div class="hero-credits">
+      نویسنده: <strong>صادق عاشورپور</strong><br>
+      کارگردان: <strong>جلیل یغمایی</strong><br>
+      مشاور کارگردان: <strong>حسین دشتبان</strong>
+    </div>
+    <a href="#about" class="enter-button"><span>✦</span> ورود به جهان سوگ جامه</a>
+    <div class="scroll-hint"><i></i>برای ادامه اسکرول کنید</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="en">THE IDENTITY OF THE PERFORMANCE</div>
+      <h2>شناسنامه نمایش</h2>
+      <p>نگاهی به هویت و عوامل شکل‌گیری سوگ جامه</p>
+      <div class="ornament">✦</div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="big-letter">سوگ جامه</span>
+        <p>
+          اثری نمایشی به نویسندگی صادق عاشورپور و کارگردانی جلیل یغمایی،
+          با همراهی گروهی از هنرمندان و عوامل پرتلاش تئاتر هدف.
+          این بروشور روایتگر نام و تلاش هنرمندانی است که هرکدام
+          بخشی از مسیر شکل‌گیری این اجرا را ساخته‌اند.
+        </p>
+        <div class="about-quote">
+          هر اجرا حاصل لحظه‌ای روی صحنه نیست؛ حاصل همراهی تمام کسانی است
+          که پیش از روشن شدن نور صحنه، برای آن تلاش کرده‌اند.
+        </div>
+      </div>
+
+      <div class="identity-card reveal delay1">
+        <h3>مشخصات اثر</h3>
+        <div class="identity-row"><span>عنوان نمایش</span><strong>سوگ جامه</strong></div>
+        <div class="identity-row"><span>نویسنده</span><strong>صادق عاشورپور</strong></div>
+        <div class="identity-row"><span>کارگردان</span><strong>جلیل یغمایی</strong></div>
+        <div class="identity-row"><span>مشاور کارگردان</span><strong>حسین دشتبان</strong></div>
+        <div class="identity-row"><span>گروه نمایشی</span><strong>تئاتر هدف</strong></div>
+        <div class="identity-row"><span>مؤسسه</span><strong>هنرهای نمایشی دایره گچی ترشیز</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAST -->
+<section class="section cast-section" id="cast">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="en">CAST & PERFORMERS</div>
+      <h2>بازیگران و صحنه‌سازان</h2>
+      <p>هنرمندان حاضر در نمایش سوگ جامه</p>
+      <div class="ornament">✦</div>
+    </div>
+
+    <div class="cast-grid">
+      <div class="cast-card featured reveal"><span class="cast-number"></span><strong>کاظم آبی</strong><span>در نقش عجیب</span></div>
+      <div class="cast-card featured reveal delay1"><span class="cast-number"></span><strong>علی دشتبان</strong><span>در نقش غریبک</span></div>
+      <div class="cast-card featured reveal delay2"><span class="cast-number"></span><strong>فرشته نجاتی</strong><span>در نقش سرور</span></div>
+      <div class="cast-card featured reveal"><span class="cast-number"></span><strong>الهام رمضان پور</strong><span>در نقش خمار</span></div>
+      <div class="cast-card featured reveal delay1"><span class="cast-number"></span><strong>کمیل جعفری</strong><span>در نقش زندانبان</span></div>
+
+      <div class="cast-card reveal delay2"><span class="cast-number"></span><strong>فاطمه اصغریان</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal"><span class="cast-number"></span><strong>صادق غزنوی</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal delay1"><span class="cast-number"></span><strong>امیرمحمد آبی</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal delay2"><span class="cast-number"></span><strong>فرشته قانعی</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal"><span class="cast-number"></span><strong>محدثه ملازم</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal delay1"><span class="cast-number"></span><strong>نادیا یوسفی</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal delay2"><span class="cast-number"></span><strong>درسا دروگر مقدم</strong><span>صحنه‌ساز</span></div>
+      <div class="cast-card reveal"><span class="cast-number"></span><strong>علی عاصمی</strong><span>صحنه‌ساز</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="section credits-section" id="music">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="en">MUSIC & SOUND</div>
+      <h2>موسیقی و صدا</h2>
+      <p>همراهی سازها، صداها و هنرمندان موسیقی</p>
+      <div class="ornament">✦</div>
+    </div>
+
+    <div class="credits-grid">
+      <div class="credit-card reveal">
+        <div class="credit-title"><div class="credit-icon"><span>♫</span></div><h3>آهنگسازی و نوازندگی</h3></div>
+        <div class="credit-row"><span>آهنگساز</span><strong>محمد خدابنده</strong></div>
+        <div class="credit-row"><span>قشمه</span><strong>استاد علی اصغر آذری</strong></div>
+        <div class="credit-row"><span>ویولن</span><strong>نیما نسائی</strong></div>
+        <div class="credit-row"><span>دوتار</span><strong>عباس هوشی</strong></div>
+        <div class="credit-row"><span>دایره</span><strong>مرتضی آذری</strong></div>
+        <div class="credit-row"><span>دهل</span><strong>احمد آذری</strong></div>
+      </div>
+
+      <div class="credit-card reveal delay1">
+        <div class="credit-title"><div class="credit-icon"><span>♪</span></div><h3>آوا و تولید موسیقی</h3></div>
+        <div class="credit-row"><span>آوا</span><strong>افسانه حکیمی، بهار یوسف زاده</strong></div>
+        <div class="credit-row"><span>سازهای الکترونیک</span><strong>مهدی آبی</strong></div>
+        <div class="credit-row"><span>ضبط و میکس</span><strong>مهدی آبی</strong></div>
+        <div class="credit-row"><span>استودیو</span><strong>دلنواز ترشیز</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section credits-section" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="en">BEHIND THE SCENES</div>
+      <h2>عوامل اجرایی و پشت صحنه</h2>
+      <p>هنرمندانی که در پشت صحنه، مسیر اجرای اثر را همراهی کردند</p>
+      <div class="ornament">✦</div>
+    </div>
+
+    <div class="credits-grid">
+      <div class="credit-card reveal">
+        <div class="credit-title"><div class="credit-icon"><span>✧</span></div><h3>نور و طراحی صحنه</h3></div>
+        <div class="credit-row"><span>طراح نور و نورپرداز</span><strong>احسان اسکندری</strong></div>
+        <div class="credit-row"><span>دستیاران نور</span><strong>بهروز صفاییان، مهدی بهاری</strong></div>
+        <div class="credit-row"><span>طراح صحنه</span><strong>جلیل آخرتی</strong></div>
+        <div class="credit-row"><span>آکسسوار</span><strong>محمد حسن آبادی، کمیل جعفری</strong></div>
+      </div>
+
+      <div class="credit-card reveal delay1">
+        <div class="credit-title"><div class="credit-icon"><span>◇</span></div><h3>لباس و گریم</h3></div>
+        <div class="credit-row"><span>طراح لباس</span><strong>کاظم شیبانی</strong></div>
+        <div class="credit-row"><span>دوخت لباس</span><strong>گیتی مزروعی، حمید مصوری</strong></div>
+        <div class="credit-row"><span>گریم</span><strong>جلیل یغمایی، محدثه اسکندری</strong></div>
+      </div>
+
+      <div class="credit-card reveal">
+        <div class="credit-title"><div class="credit-icon"><span>✦</span></div><h3>مدیریت و اجرای صحنه</h3></div>
+        <div class="credit-row"><span>منشی صحنه</span><strong>فرشته قانعی</strong></div>
+        <div class="credit-row"><span>مدیریت سالن</span><strong>سید دانیال حسینی</strong></div>
+        <div class="credit-row"><span>گوینده</span><strong>مریم عندلیب</strong></div>
+        <div class="credit-row"><span>روابط عمومی و تبلیغات</span><strong>مهدی بهاری</strong></div>
+      </div>
+
+      <div class="credit-card reveal delay1">
+        <div class="credit-title"><div class="credit-icon"><span>▣</span></div><h3>رسانه و مستندسازی</h3></div>
+        <div class="credit-row"><span>طراح بروشور الکترونیک</span><strong>جواد موسوی</strong></div>
+        <div class="credit-row"><span>تیزر</span><strong>سید دانیال حسینی، مهدی بهاری، امیرمحمد آبی، محسن برهانی</strong></div>
+        <div class="credit-row"><span>عکس</span><strong>امیر حسین ترشیزی، نگار دشتبان</strong></div>
+      </div>
+
+      <div class="credit-card reveal">
+        <div class="credit-title"><div class="credit-icon"><span>✧</span></div><h3>انتظامات سالن</h3></div>
+        <div class="credit-row"><span>همراهان</span><strong>ایمان مرادیان، حمید حسن آبادی، مصطفی رجب زاده، حامد باذلی</strong></div>
+      </div>
+
+      <div class="credit-card reveal delay1">
+        <div class="credit-title"><div class="credit-icon"><span>♡</span></div><h3>یاران همراه</h3></div>
+        <div class="credit-row"><span>همراهان گروه</span><strong>رسول حیدریان، مهدی یوسفی، رسول قربانی، مهدی شریفی، آرزو مرادیان</strong></div>
+        <div class="credit-row"><span>قدردانی</span><strong>خانواده محترم هنرمندان گروه تئاتر هدف</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THANKS -->
+<section class="section thanks-section" id="thanks">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="en">WITH GRATITUDE</div>
+      <h2>سپاس و قدردانی</h2>
+      <p>قدردان همراهی و حمایت عزیزانی هستیم که کنار این اجرا بودند</p>
+      <div class="ornament">✦</div>
+    </div>
+
+    <div class="thanks-grid">
+      <div class="thanks-card reveal">
+        <h3>اداره فرهنگ و ارشاد اسلامی</h3>
+        <p>
+          با تشکر از مدیریت اداره فرهنگ و ارشاد اسلامی و سالن خلیل‌آباد،
+          سرکار خانم حسینی.
+        </p>
+      </div>
+      <div class="thanks-card reveal delay1">
+        <h3>اداره آموزش و پرورش خلیل‌آباد</h3>
+        <p>
+          با تشکر از مدیریت اداره آموزش و پرورش خلیل‌آباد،
+          جناب آقای طاهری و معاونت پرورشی اداره آموزش و پرورش،
+          جناب آقای عرب.
+        </p>
+      </div>
+    </div>
+
+    <div class="special-thanks reveal">
+      <h3>سپاس ویژه</h3>
+      <p>
+        با تشکر ویژه از هنرمند محبوب و پرتلاش خلیل‌آباد،
+        جناب آقای حسین خزاعی و همچنین جناب آقای مصطفی علی‌اکبری.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ENDING -->
+<section class="closing">
+  <div class="container">
+    <img class="closing-mark reveal" src="sog-jameh-logo.png" alt="سوگ جامه">
+    <h2 class="reveal">سوگ جامه</h2>
+    <p class="closing-sub reveal">یک اثر نمایشی از گروه تئاتر هدف</p>
+
+    <div class="logo-family">
+      <div class="logo-item reveal">
+        <div class="logo-frame">
+          <img src="sog-jameh-logo.png" alt="لوگوی نمایش سوگ جامه">
+        </div>
+        <span>نمایش سوگ جامه</span>
+      </div>
+
+      <div class="logo-item reveal delay1">
+        <div class="logo-frame">
+          <img src="hadaf-logo.png" alt="لوگوی گروه تئاتر هدف">
+        </div>
+        <span>گروه تئاتر هدف</span>
+      </div>
+
+      <div class="logo-item reveal delay2">
+        <div class="logo-frame">
+          <img src="dayereh-logo.png" alt="لوگوی مؤسسه دایره گچی">
+        </div>
+        <span>مؤسسه هنرهای نمایشی دایره گچی ترشیز</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p>بروشور دیجیتال نمایش سوگ جامه</p>
+  <p>طراحی بروشور الکترونیک: جواد موسوی | گروه تئاتر هدف</p>
+</footer>
+
+<button class="top-button" id="topButton" aria-label="بازگشت به بالا">↑</button>
+
+<script>
+/* LOADER */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("out");
+    document.body.classList.remove("loading");
+  },900);
+});
+
+/* SCROLL PROGRESS AND HEADER */
+const progress=document.getElementById("progress");
+const header=document.getElementById("header");
+const topButton=document.getElementById("topButton");
+
+function onScroll(){
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  const percent=max>0?(window.scrollY/max)*100:0;
+  progress.style.width=percent+"%";
+  header.classList.toggle("scrolled",window.scrollY>35);
+  topButton.classList.toggle("show",window.scrollY>500);
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+onScroll();
+
+topButton.addEventListener("click",()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* MOBILE MENU */
+const menuButton=document.getElementById("menuButton");
+const navLinks=document.getElementById("navLinks");
+menuButton.addEventListener("click",()=>{
+  navLinks.classList.toggle("open");
+});
+navLinks.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click",()=>navLinks.classList.remove("open"));
+});
+
+/* SCROLL REVEAL */
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>revealObserver.observe(el));
+
+/* 3D TILT CARDS */
+const canTilt=window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+if(canTilt){
+  document.querySelectorAll(".cast-card,.credit-card").forEach(card=>{
+    card.addEventListener("mousemove",e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=
+        `perspective(800px) rotateY(${x*8}deg) rotateX(${-y*7}deg) translateY(-4px)`;
+    });
+    card.addEventListener("mouseleave",()=>{
+      card.style.transform="";
+    });
+  });
+}
+
+/* HERO PARALLAX */
+const hero=document.getElementById("hero");
+const heroContent=document.getElementById("heroContent");
+if(canTilt){
+  hero.addEventListener("mousemove",e=>{
+    const r=hero.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    heroContent.style.transform=`rotateY(${x*3}deg) rotateX(${-y*2}deg)`;
+  });
+  hero.addEventListener("mouseleave",()=>{
+    heroContent.style.transform="";
+  });
+}
+
+/* PARTICLE STAGE */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let particles=[];
+let width=0,height=0;
+const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function resizeCanvas(){
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  width=window.innerWidth;
+  height=window.innerHeight;
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const count=reduceMotion?0:Math.min(75,Math.floor(width/17));
+  particles=Array.from({length:count},()=>({
+    x:Math.random()*width,
+    y:Math.random()*height,
+    r:Math.random()*1.7+.35,
+    vy:Math.random()*.32+.08,
+    vx:(Math.random()-.5)*.18,
+    alpha:Math.random()*.45+.12,
+    phase:Math.random()*Math.PI*2
+  }));
+}
+function drawParticles(){
+  ctx.clearRect(0,0,width,height);
+  particles.forEach(p=>{
+    p.y-=p.vy;
+    p.x+=p.vx+Math.sin(p.phase)*.08;
+    p.phase+=.006;
+    if(p.y<-5){p.y=height+5;p.x=Math.random()*width}
+    if(p.x<-5)p.x=width+5;
+    if(p.x>width+5)p.x=-5;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(207,157,102,${p.alpha})`;
+    ctx.fill();
+  });
+  if(!reduceMotion)requestAnimationFrame(drawParticles);
+}
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+if(!reduceMotion)drawParticles();
+</script>
+
+</body>
+</html>
